@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>Login.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Login.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.loginapp1</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Handler</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Looper</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.ProgressBar</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.material.textfield.TextInputEditText</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.vishnusivadas.advanced_httpurlconnection.PutData</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Login </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s1">TextInputEditText textInputLayoutUsername</span><span class="s0">, </span><span class="s1">textInputLayoutPassword</span><span class="s0">;</span>
+    <span class="s1">Button buttonLogin</span><span class="s0">;</span>
+    <span class="s1">TextView textViewLogin</span><span class="s0">;</span>
+    <span class="s1">ProgressBar progressBar</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_login)</span><span class="s0">;</span>
+
+        <span class="s1">textInputLayoutUsername = findViewById(R.id.username)</span><span class="s0">;</span>
+        <span class="s1">textInputLayoutPassword = findViewById(R.id.password)</span><span class="s0">;</span>
+        <span class="s1">buttonLogin = findViewById(R.id.buttonLogin)</span><span class="s0">;</span>
+        <span class="s1">textViewLogin = findViewById(R.id.loginText)</span><span class="s0">;</span>
+        <span class="s1">progressBar = findViewById(R.id.progress)</span><span class="s0">;</span>
+
+        <span class="s1">buttonLogin.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener(){</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View v){</span>
+
+                <span class="s0">final </span><span class="s1">String username</span><span class="s0">, </span><span class="s1">password</span><span class="s0">;</span>
+                <span class="s1">username = String.valueOf(textInputLayoutUsername.getText())</span><span class="s0">;</span>
+                <span class="s1">password = String.valueOf(textInputLayoutPassword.getText())</span><span class="s0">;</span>
+
+                <span class="s0">if</span><span class="s1">(!username.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">) &amp;&amp; !password.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">)) {</span>
+
+                    <span class="s3">//Start ProgressBar first (Set visibility VISIBLE)</span>
+                    <span class="s1">progressBar.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+
+                    <span class="s1">Handler handler = </span><span class="s0">new </span><span class="s1">Handler(Looper.getMainLooper())</span><span class="s0">;</span>
+                    <span class="s1">handler.post(</span><span class="s0">new </span><span class="s1">Runnable() {</span>
+                        <span class="s1">@Override</span>
+                        <span class="s0">public void </span><span class="s1">run() {</span>
+
+                            <span class="s3">//Starting Write and Read data with URL</span>
+                            <span class="s3">//Creating array for parameters</span>
+                            <span class="s1">String[] field = </span><span class="s0">new </span><span class="s1">String[</span><span class="s4">2</span><span class="s1">]</span><span class="s0">;</span>
+                            <span class="s1">field[</span><span class="s4">0</span><span class="s1">] = </span><span class="s2">&quot;username&quot;</span><span class="s0">;</span>
+                            <span class="s1">field[</span><span class="s4">1</span><span class="s1">] = </span><span class="s2">&quot;password&quot;</span><span class="s0">;</span>
+                            <span class="s3">//Creating array for data</span>
+                            <span class="s1">String[] data = </span><span class="s0">new </span><span class="s1">String[</span><span class="s4">2</span><span class="s1">]</span><span class="s0">;</span>
+                            <span class="s1">data[</span><span class="s4">0</span><span class="s1">] = username</span><span class="s0">;</span>
+                            <span class="s1">data[</span><span class="s4">1</span><span class="s1">] = password</span><span class="s0">;</span>
+                            <span class="s3">// URL allow to insert data to the php file then to the DB in phpmyadmin.</span>
+                            <span class="s1">PutData putData = </span><span class="s0">new </span><span class="s1">PutData(</span><span class="s2">&quot;https://ysjcs.net/~daniel.tang/login.php&quot;</span><span class="s0">, </span><span class="s2">&quot;POST&quot;</span><span class="s0">, </span><span class="s1">field</span><span class="s0">, </span><span class="s1">data)</span><span class="s0">;</span>
+                            <span class="s0">if </span><span class="s1">(putData.startPut()) {</span>
+                                <span class="s0">if </span><span class="s1">(putData.onComplete()) {</span>
+                                    <span class="s1">String result = putData.getResult()</span><span class="s0">;</span>
+                                    <span class="s3">//End ProgressBar (Set visibility to GONE)</span>
+
+                                    <span class="s1">progressBar.setVisibility(View.GONE)</span><span class="s0">;</span>
+
+                                    <span class="s0">if</span><span class="s1">(result.equals(</span><span class="s2">&quot;Login Success&quot;</span><span class="s1">)){</span>
+                                        <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s1">result</span><span class="s0">,</span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                                        <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">, </span><span class="s1">MainActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                                        <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                                        <span class="s1">finish()</span><span class="s0">;</span>
+                                    <span class="s1">}</span>
+                                    <span class="s0">else </span><span class="s1">{</span>
+                                        <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s1">result</span><span class="s0">,</span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                                    <span class="s1">}</span>
+                                    <span class="s1">Log.i(</span><span class="s2">&quot;PutData&quot;</span><span class="s0">, </span><span class="s1">result)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                            <span class="s1">}</span>
+                            <span class="s3">//End Write and Read data with URL</span>
+
+                        <span class="s1">}</span>
+                    <span class="s1">})</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s0">else </span><span class="s1">{</span>
+                    <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s2">&quot;All fields are required&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

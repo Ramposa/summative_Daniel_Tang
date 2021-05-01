@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".foodDetail">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35sp"
+        android:id="@+id/textView"
+        android:layout_weight="1"
+        android:textSize="25sp"
+        android:text="Orders"
+        android:textAlignment="center"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/listView"
+        android:layout_height="350dp"
+        android:hint="Items will be here"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/priceView"
+        android:layout_height="150dp"
+        android:hint="price will be here"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="50dp">
+
+        <Button
+            android:onClick="returnHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Return"/>
+
+    </LinearLayout>
+
+</LinearLayout>
